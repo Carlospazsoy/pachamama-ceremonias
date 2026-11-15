@@ -171,7 +171,7 @@ export const content: Record<Locale, SiteContent> = {
     services: {
       eyebrow: "Ritos de paso y celebraciones",
       title: "Un encuentro a la medida de tu momento.",
-      intro: "En San Miguel de Allende y alrededores, creamos experiencias íntimas o para grupos, en el lugar que elijan.",
+      intro: "En San Miguel de Allende y alrededores, creamos experiencias íntimas o para grupos, en una amplia variedad de lugares.",
       items: servicesByLocale.es,
       all: "¿Buscas otro tipo de ceremonia? Cuéntanos y la diseñamos contigo.",
     },
@@ -179,10 +179,11 @@ export const content: Record<Locale, SiteContent> = {
       eyebrow: "Pachamama Ceremonias",
       title: "El valor de reunirnos y celebrar la vida.",
       paragraphs: [
-        "Desde 2005, acompañamos a personas y familias a crear espacios de encuentro inspirados en la gratitud, la comunidad y el respeto por las raíces culturales.",
-        "Cada ceremonia se conversa y se diseña con quienes la celebran: su historia, sus deseos, el lugar y la participación de sus seres queridos. Con una guía cercana y un servicio bilingüe, hacemos que todos puedan sentirse parte.",
+        "Somos un equipo especializado en bodas simbólicas y ceremonias espirituales en San Miguel de Allende, Guanajuato. También colaboramos con el sector del turismo de bienestar.",
+        "Desde 2005, creamos espacios de conexión emocional y espiritual inspirados en la cosmovisión y los valores de tradiciones ancestrales y culturas indígenas. Cada ceremonia busca celebrar la unidad, la gratitud, la comunidad y la vida.",
+        "Hemos diseñado más de 15 ceremonias y ritos de paso, entre ellos bodas simbólicas, temazcales, ceremonias de cacao, sound healing y bendiciones de vientre. Cada experiencia se adapta a la historia y los deseos de quienes la viven.",
       ],
-      imageAlt: "Participantes reunidos en una ceremonia de Pachamama",
+      imageAlt: "Collage de lugares emblemáticos del centro histórico de San Miguel de Allende",
     },
     process: {
       eyebrow: "Un proceso sencillo y cercano",
@@ -288,10 +289,11 @@ export const content: Record<Locale, SiteContent> = {
       eyebrow: "Pachamama Ceremonias",
       title: "The meaning of coming together to celebrate life.",
       paragraphs: [
-        "Since 2005, we have helped people and families create moments of connection inspired by gratitude, community and respect for cultural roots.",
-        "We plan each ceremony together with the people celebrating: your story, wishes, venue and the participation of loved ones. With thoughtful guidance in English or Spanish, everyone can feel included.",
+        "We are a team specializing in symbolic weddings and spiritual ceremonies in San Miguel de Allende, Guanajuato. We also work with the wellness tourism sector.",
+        "Since 2005, we have created spaces for emotional and spiritual connection inspired by the worldviews and values of ancestral traditions and Indigenous cultures. Each ceremony celebrates unity, gratitude, community and life.",
+        "We have designed more than 15 ceremonies and rites of passage, including symbolic weddings, temazcal, cacao ceremonies, sound healing and belly blessings. Each experience is shaped around the story and wishes of the people taking part.",
       ],
-      imageAlt: "Participants gathered at a Pachamama ceremony",
+      imageAlt: "Collage of landmarks in the historic center of San Miguel de Allende",
     },
     process: {
       eyebrow: "A thoughtful, simple process",

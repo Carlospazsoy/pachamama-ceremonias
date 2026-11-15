@@ -140,9 +140,8 @@ export default async function HomePage({ params }: PageProps) {
             <div className="image-caption">
               <span>{locale === "es" ? "Una celebración que habla de ustedes" : "A celebration that feels like you"}</span>
             </div>
-            <div className="hero-image-note">San Miguel de Allende · México</div>
+            {/* <div className="hero-image-note">San Miguel de Allende · México</div> */}
           </div>
-          <div className="hero-stamp" aria-hidden="true"><span>CON INTENCIÓN</span><span>DESDE 2005</span></div>
         </section>
 
         <section className="service-strip" aria-label={locale === "es" ? "Características" : "Highlights"}>
@@ -181,12 +180,13 @@ export default async function HomePage({ params }: PageProps) {
         <section className="story-section" id="story">
           <div className="story-image-wrap">
             <Image
-              src="/assets/ritual-evento.jpg"
+              src="/assets/San-Miguel-de-Allende-2.jpg"
               alt={copy.story.imageAlt}
-              fill
+              width={1200}
+              height={800}
               sizes="(max-width: 760px) 100vw, 50vw"
             />
-            <span className="story-image-label">Pachamama · San Miguel de Allende</span>
+            <span className="story-image-label">San Miguel de Allende · México</span>
           </div>
           <div className="story-copy">
             <p className="eyebrow"><span className="eyebrow-line" />{copy.story.eyebrow}</p>
