@@ -68,7 +68,8 @@ export const servicesByLocale: Record<Locale, Service[]> = {
     {
       title: "Bodas simbólicas",
       description: "Una ceremonia personal, cálida y participativa para celebrar su unión junto a las personas que aman.",
-      image: "/assets/boda-simbolica-xime-may.webp",
+      image: "/assets/boda-4-elementos.jpg",
+      // hero
       alt: "Pareja durante una ceremonia simbólica de boda",
     },
     {
@@ -80,13 +81,13 @@ export const servicesByLocale: Record<Locale, Service[]> = {
     {
       title: "Sound healing",
       description: "Una experiencia de escucha y descanso con instrumentos sonoros, adaptable a tu grupo y ocasión.",
-      image: "/assets/soundhealing.jpg",
+      image: "/assets/sound-healing-sagrada-pachamama-ceremonias.jpg",
       alt: "Instrumentos usados en una experiencia de sonido",
     },
     {
       title: "Ritual de cumpleaños",
       description: "Honra un nuevo ciclo con palabras, símbolos y la presencia de tus seres queridos.",
-      image: "/assets/ritual-evento.jpg",
+      image: "/assets/cumpleaños-samira-pachamama-ceremonias (62).jpg",
       alt: "Invitados reunidos para celebrar un momento especial",
     },
     {
@@ -98,7 +99,7 @@ export const servicesByLocale: Record<Locale, Service[]> = {
     {
       title: "Temazcal",
       description: "Una experiencia guiada y coordinada con atención a las condiciones del espacio anfitrión.",
-      image: "/assets/apertura-evento-liveaqua.jpg",
+      image: "/assets/temazcal-villas-xichu.webp",
       alt: "Espacio preparado para una ceremonia de temazcal",
     },
     {
@@ -112,7 +113,8 @@ export const servicesByLocale: Record<Locale, Service[]> = {
     {
       title: "Symbolic weddings",
       description: "A personal, warm and participatory ceremony to celebrate your union with the people you love.",
-      image: "/assets/boda-simbolica-xime-may.webp",
+      image: "/assets/boda-4-elementos.jpg",
+      // hero 
       alt: "Couple during a symbolic wedding ceremony",
     },
     {
@@ -124,7 +126,7 @@ export const servicesByLocale: Record<Locale, Service[]> = {
     {
       title: "Sound healing",
       description: "A listening and relaxation experience with sound instruments, adapted to your group and occasion.",
-      image: "/assets/soundhealing.jpg",
+      image: "/assets/sound-healing-sagrada-pachamama-ceremonias.jpg",
       alt: "Instruments used in a sound experience",
     },
     {
@@ -142,7 +144,7 @@ export const servicesByLocale: Record<Locale, Service[]> = {
     {
       title: "Temazcal",
       description: "A guided experience coordinated with care for the conditions of the host venue.",
-      image: "/assets/apertura-evento-liveaqua.jpg",
+      image: "/assets/temazcal-villas-xichu.webp",
       alt: "Space prepared for a temazcal ceremony",
     },
     {
@@ -190,9 +192,9 @@ export const content: Record<Locale, SiteContent> = {
       title: "De tu primera idea a un día inolvidable.",
       intro: "Primero escuchamos lo que quieres celebrar. Luego proponemos una experiencia y un paquete a la medida.",
       steps: [
-        { title: "Cuéntanos", description: "Comparte la ocasión, la fecha aproximada y el lugar. Cada detalle puede definirse después." },
+        { title: "Registrate", description: "Comparte la ocasión, la fecha aproximada y el lugar. Cada detalle puede definirse después." },
         { title: "Conversemos", description: "Agendamos una llamada para conocer sus ideas, resolver dudas y preparar una propuesta." },
-        { title: "Diseñamos juntos", description: "Acordamos el formato y los detalles. Al confirmar el servicio, se solicita un anticipo del 50 %." },
+        { title: "Hagamoslo suceder", description: "Acordamos el formato y los detalles. Al confirmar el servicio, se solicita un anticipo del 50 %." },
       ],
     },
     testimonials: {
