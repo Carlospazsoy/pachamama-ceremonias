@@ -1,17 +1,73 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import Script from "next/script";
+import { useRef, useState, type FormEvent } from "react";
 import { content, servicesByLocale, type Locale } from "@/lib/content";
 
-type Props = { locale: Locale; calUrl?: string };
-type FormStatus = "idle" | "sending" | "success" | "error" | "spam";
+type Props = { locale: Locale; calUrl?: string; turnstileSiteKey?: string };
+type FormStatus = "idle" | "sending" | "success" | "error" | "spam" | "verification";
 
-export function ContactForm({ locale, calUrl }: Props) {
+type TurnstileOptions = {
+  sitekey: string;
+  callback: (token: string) => void;
+  "error-callback": () => void;
+  "expired-callback": () => void;
+};
+
+type TurnstileApi = {
+  render: (container: HTMLElement, options: TurnstileOptions) => string;
+  reset: (widgetId?: string) => void;
+};
+
+declare global {
+  interface Window {
+    turnstile?: TurnstileApi;
+  }
+}
+
+export function ContactForm({ locale, calUrl, turnstileSiteKey }: Props) {
   const copy = content[locale].contact.fields;
   const [status, setStatus] = useState<FormStatus>("idle");
+  const [turnstileToken, setTurnstileToken] = useState("");
+  const turnstileContainer = useRef<HTMLDivElement>(null);
+  const turnstileWidgetId = useRef<string | null>(null);
+
+  function renderTurnstile() {
+    if (!turnstileSiteKey || !turnstileContainer.current || turnstileWidgetId.current) return;
+    if (!window.turnstile) {
+      setStatus("verification");
+      return;
+    }
+
+    turnstileWidgetId.current = window.turnstile.render(turnstileContainer.current, {
+      sitekey: turnstileSiteKey,
+      callback: (token) => {
+        setTurnstileToken(token);
+        setStatus("idle");
+      },
+      "error-callback": () => {
+        setTurnstileToken("");
+        setStatus("verification");
+      },
+      "expired-callback": () => {
+        setTurnstileToken("");
+        setStatus("verification");
+      },
+    });
+  }
+
+  function resetTurnstile() {
+    setTurnstileToken("");
+    if (turnstileWidgetId.current) window.turnstile?.reset(turnstileWidgetId.current);
+  }
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (!turnstileSiteKey || !turnstileToken) {
+      setStatus("verification");
+      return;
+    }
+
     setStatus("sending");
 
     const form = event.currentTarget;
@@ -22,20 +78,28 @@ export function ContactForm({ locale, calUrl }: Props) {
       const response = await fetch("/api/inquiries", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...payload, locale }),
+        body: JSON.stringify({ ...payload, locale, turnstileToken }),
       });
       const result = await response.json();
 
       if (response.status === 202 && result.spam) {
         setStatus("spam");
         form.reset();
+        resetTurnstile();
+        return;
+      }
+      if (response.status === 400 && result.code === "TURNSTILE_INVALID") {
+        resetTurnstile();
+        setStatus("verification");
         return;
       }
       if (!response.ok) throw new Error("Inquiry submission failed");
 
       setStatus("success");
       form.reset();
+      resetTurnstile();
     } catch {
+      resetTurnstile();
       setStatus("error");
     }
   }
@@ -84,11 +148,28 @@ export function ContactForm({ locale, calUrl }: Props) {
         Leave this field empty
         <input name="website" tabIndex={-1} autoComplete="off" />
       </label>
+      {turnstileSiteKey ? (
+        <>
+          <Script
+            src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit"
+            strategy="afterInteractive"
+            onReady={renderTurnstile}
+            onError={() => setStatus("verification")}
+          />
+          <div className="turnstile-widget" ref={turnstileContainer} />
+        </>
+      ) : (
+        <p className="form-message form-error">{copy.captchaUnavailable}</p>
+      )}
       <label className="consent-field">
         <input name="consent" type="checkbox" required />
         <span>{copy.consent}</span>
       </label>
-      <button className="button button-dark form-submit" type="submit" disabled={status === "sending"}>
+      <button
+        className="button button-dark form-submit"
+        type="submit"
+        disabled={status === "sending" || !turnstileSiteKey || !turnstileToken}
+      >
         {status === "sending" ? copy.sending : copy.submit}<span aria-hidden="true"> ↗</span>
       </button>
       {status === "success" && (
@@ -99,6 +180,7 @@ export function ContactForm({ locale, calUrl }: Props) {
       )}
       {status === "error" && <p className="form-message form-error" role="alert">{copy.error}</p>}
       {status === "spam" && <p className="form-message" role="status">{copy.spam}</p>}
+      {status === "verification" && <p className="form-message form-error" role="alert">{copy.verification}</p>}
     </form>
   );
 }

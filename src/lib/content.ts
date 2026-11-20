@@ -56,6 +56,8 @@ export type SiteContent = {
       success: string;
       error: string;
       spam: string;
+      captchaUnavailable: string;
+      verification: string;
       schedule: string;
       calPending: string;
     };
@@ -261,6 +263,8 @@ export const content: Record<Locale, SiteContent> = {
         success: "¡Gracias! Recibimos tu consulta y nos pondremos en contacto contigo.",
         error: "No pudimos enviar tu consulta. Inténtalo de nuevo o escríbenos por WhatsApp.",
         spam: "Gracias. Si necesitas información, contáctanos por WhatsApp.",
+        captchaUnavailable: "La verificación del formulario no está disponible. Escríbenos por WhatsApp.",
+        verification: "Completa la verificación antispam para enviar tu consulta. Si no aparece, recarga la página.",
         schedule: "Si ya quieres elegir un horario, puedes reservar una llamada aquí:",
         calPending: "Al recibir tu consulta, coordinaremos una llamada por WhatsApp.",
       },
@@ -371,6 +375,8 @@ export const content: Record<Locale, SiteContent> = {
         success: "Thank you! We received your enquiry and will be in touch.",
         error: "We couldn't send your enquiry. Please try again or message us on WhatsApp.",
         spam: "Thank you. If you need information, please contact us on WhatsApp.",
+        captchaUnavailable: "Form verification is unavailable. Please contact us on WhatsApp.",
+        verification: "Complete the anti-spam verification to send your enquiry. If it does not appear, reload the page.",
         schedule: "Ready to choose a time? You can book a call here:",
         calPending: "Once we receive your enquiry, we’ll arrange a call with you on WhatsApp.",
       },

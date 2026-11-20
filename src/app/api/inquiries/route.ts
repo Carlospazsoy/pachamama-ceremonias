@@ -25,6 +25,24 @@ function clean(value: unknown, maxLength: number): string {
   return typeof value === "string" ? value.trim().slice(0, maxLength) : "";
 }
 
+async function verifyTurnstile(token: string, secret: string): Promise<boolean> {
+  const response = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ secret, response: token }),
+    signal: AbortSignal.timeout(10_000),
+  });
+
+  if (!response.ok) throw new Error(`Turnstile Siteverify returned HTTP ${response.status}`);
+
+  const result: unknown = await response.json();
+  if (!isRecord(result) || typeof result.success !== "boolean") {
+    throw new Error("Turnstile Siteverify returned an invalid response.");
+  }
+
+  return result.success;
+}
+
 export async function POST(request: Request) {
   let body: unknown;
   try {
@@ -50,6 +68,26 @@ export async function POST(request: Request) {
   }
   if (fields.guests && (!/^\d+$/.test(fields.guests) || Number(fields.guests) < 1 || Number(fields.guests) > 10000)) {
     return NextResponse.json({ error: "Invalid guest count." }, { status: 400 });
+  }
+
+  const turnstileSecret = process.env.TURNSTILE_SECRET_KEY;
+  if (!turnstileSecret) {
+    return NextResponse.json({ error: "Spam protection is not configured." }, { status: 503 });
+  }
+
+  const turnstileToken = clean(body.turnstileToken, 2048);
+  if (!turnstileToken) {
+    return NextResponse.json({ error: "Please complete the verification.", code: "TURNSTILE_INVALID" }, { status: 400 });
+  }
+
+  try {
+    const isVerified = await verifyTurnstile(turnstileToken, turnstileSecret);
+    if (!isVerified) {
+      return NextResponse.json({ error: "Please complete the verification.", code: "TURNSTILE_INVALID" }, { status: 400 });
+    }
+  } catch (error) {
+    console.error("Turnstile verification request failed:", error);
+    return NextResponse.json({ error: "Could not verify the anti-spam challenge." }, { status: 502 });
   }
 
   const apiKey = process.env.RESEND_API_KEY;

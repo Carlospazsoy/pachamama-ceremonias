@@ -19,7 +19,7 @@ Comandos de validación: `npm run lint`, `npm run typecheck` y `npm run build`.
 
 ## Consultas, agenda y pagos
 
-El formulario envía los datos mediante `/api/inquiries` usando Resend. Configura `RESEND_API_KEY` y verifica el dominio remitente en Resend antes de publicar; `INQUIRY_TO_EMAIL` e `INQUIRY_FROM_EMAIL` permiten ajustar las direcciones. No guardamos las consultas en una base de datos.
+El formulario envía los datos mediante `/api/inquiries` usando Resend. Configura `RESEND_API_KEY` y verifica el dominio remitente en Resend antes de publicar; `INQUIRY_TO_EMAIL` e `INQUIRY_FROM_EMAIL` permiten ajustar las direcciones. La protección antispam usa Cloudflare Turnstile: [crea un widget](https://developers.cloudflare.com/turnstile/get-started/) en modo administrado, autoriza los hostnames del sitio y configura `NEXT_PUBLIC_TURNSTILE_SITE_KEY` y `TURNSTILE_SECRET_KEY`. La clave secreta solo se usa en el servidor. Configura ambas variables en local y en Hostinger antes de publicar. Para desarrollo local puedes usar las [claves de prueba de Turnstile](https://developers.cloudflare.com/turnstile/troubleshooting/testing/), nunca en producción. No guardamos las consultas en una base de datos.
 
 Cuando exista la página pública de Cal.com, define `NEXT_PUBLIC_CAL_URL` con la URL completa. Hasta entonces, las consultas se pueden coordinar por WhatsApp. El pago no se cobra en el sitio: el paquete y el anticipo del 50 % se acuerdan después de la llamada, como se hace actualmente.
 

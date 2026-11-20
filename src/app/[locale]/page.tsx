@@ -91,6 +91,7 @@ export default async function HomePage({ params }: PageProps) {
   const copy = content[locale];
   const services = copy.services.items;
   const calUrl = process.env.NEXT_PUBLIC_CAL_URL;
+  const turnstileSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
   const processLabels = locale === "es" ? ["01", "02", "03"] : ["01", "02", "03"];
 
   return (
@@ -276,7 +277,7 @@ export default async function HomePage({ params }: PageProps) {
           <div className="contact-form-panel">
             <h3>{copy.contact.formTitle}</h3>
             <p>{copy.contact.formDescription}</p>
-            <ContactForm locale={locale} calUrl={calUrl} />
+            <ContactForm locale={locale} calUrl={calUrl} turnstileSiteKey={turnstileSiteKey} />
           </div>
         </section>
       </main>

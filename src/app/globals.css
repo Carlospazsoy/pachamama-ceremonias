@@ -771,6 +771,9 @@ h3 {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
 }
+.turnstile-widget {
+  margin-top: 16px;
+}
 .form-message {
   margin: 13px 0 0;
   padding: 11px 13px;
