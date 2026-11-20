@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+
 import { ContactForm } from "@/components/ContactForm";
 import { TestimonialVideos } from "@/components/TestimonialVideos";
 import { content, contactEmail, contactPhone, servicesByLocale, siteUrl, whatsappUrl, type Locale } from "@/lib/content";
@@ -97,8 +98,14 @@ export default async function HomePage({ params }: PageProps) {
       <StructuredData locale={locale} />
       <header className="site-header">
         <Link className="brand" href={`/${locale}`} aria-label="Pachamama Ceremonias — home">
-          <span className="brand-mark" aria-hidden="true">P</span>
-          <span className="brand-name">Pachamama <span>Ceremonias</span></span>
+          <Image
+            className="brand-logo"
+            src="/assets/logo-pachamama-ceremonias-1033px-302px.png"
+            alt=""
+            width={1033}
+            height={302}
+            sizes="(max-width: 760px) 145px, 180px"
+          />
         </Link>
         <nav className="main-nav" aria-label={locale === "es" ? "Navegación principal" : "Main navigation"}>
           <a href="#services">{copy.nav.services}</a>
@@ -276,8 +283,14 @@ export default async function HomePage({ params }: PageProps) {
 
       <footer className="site-footer">
         <Link className="brand footer-brand" href={`/${locale}`}>
-          <span className="brand-mark" aria-hidden="true">P</span>
-          <span className="brand-name">Pachamama <span>Ceremonias</span></span>
+          <Image
+            className="brand-logo"
+            src="/assets/logo-pachamama-ceremonias-1033px-302px.png"
+            alt=""
+            width={1033}
+            height={302}
+            sizes="160px"
+          />
         </Link>
         <p>{copy.footer.note}</p>
         <span className="footer-privacy">{copy.footer.privacy}</span>
